@@ -15,30 +15,65 @@ body {
 header, main {
 	background: #3E2A35;
 	color: #FFFFFF;
+  padding: 25px;
 }
 
 header {
+	align-items: center;
 	display: flex;
 	justify-content: space-between;
+}
+
+h1 {
+	font-size: 50px;
+	margin-left: 50px;
+}
+
+.logo {
+	width: 60px;
+}
+
+.search-area {
+	background: #938284;
+	border: 2px solid #938284;
+  border-radius: 5px;
 	align-items: center;
+	display: flex;
+	justify-content: center;
+	margin-right: 70px;
+}
+
+#search-input {
+  border-radius: 5px 0px 0px 5px;
+  height: 45px;
+  margin-right: 10px;
+  width: 250px;
+}
+
+.search-svg {
+	height: 30px;
+	padding-right: 10px;
+	width: 30px;
 }
 
 #title-input,
-#caption-input {
+#caption-input,
+#search-input {
 	border: none;
 }
 
 /*Main*/
 
 .inputs-buttons {
+	font-size: 20px;
 	margin: auto;
-    padding: 35px;
+  padding: 35px;
 	width: 50%;
 }
 
 .title-caption-form {
 	display: grid;
-	grid-template-rows: 1fr 2fr 1fr 2fr;
+	grid-template-rows: 1fr 3fr 1fr 3fr;
 	grid-row-gap: 10px
 }
 
@@ -46,9 +81,10 @@ header {
 	background: #5B4447;
 	border: none;
 	color: #FFFFFF;
-    height: 40px;
-    margin-top: 35px;
-    padding: 0;
+	font-size: 20px;
+  height: 60px;
+  margin-top: 35px;
+  padding: 0;
 	width: 45%;
 }
 
@@ -62,6 +98,7 @@ header {
 
 .choose-button {
 	display: flex;
+	height: 60px;
 	justify-content: center;
 	align-items: center;
 	width: 100%;
@@ -80,16 +117,16 @@ header {
 
 footer {
 	display: grid;
-    justify-content: center;
-    grid-template-columns: repeat(auto-fit, 200px);
-    grid-gap: 20px;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fit, 240px);
+  grid-gap: 20px;
 	background: #C2B2B4;
 }
 
 .full-card {
 	border: 1.5px solid #5B4447;
 	background: #FFFFFF;
-	height: 250px;
+	height: 350px;
 	margin: 15px 0 15px 0;
 	display: grid;
 	grid-template-rows: .75fr 3fr 1fr .75fr;
@@ -105,5 +142,20 @@ footer {
 
 .card-title, .card-img {
 	border-bottom: 1px solid #5B4447;
+}
+
+.card-title, .card-caption {
+	color: #5B4447;
+	font-weight: 700;
+	padding: 10px;
+}
+
+.card-img {
+	width: 236px;
+	height: 100%;
+}
+
+.favorite, .delete {
+	width: 35px;
 }
 

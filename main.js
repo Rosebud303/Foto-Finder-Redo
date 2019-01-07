@@ -7,9 +7,10 @@ var searchInput = document.querySelector('#search-input');
 var reader = new FileReader();
 var photoArray = [];
 
+
 addButton.disabled = true;
 
-addButton.addEventListener('click', createPhoto);
+addButton.addEventListener('click', createElement);
 captionInput.addEventListener('keyup', enableAddButton);
 titleInput.addEventListener('keyup', enableAddButton);
 searchInput.addEventListener('keyup', searchCards);
@@ -17,10 +18,12 @@ searchInput.addEventListener('keyup', searchCards);
 window.onload = loadFromLocalStorage();
 
 function loadFromLocalStorage () {
-  var doesHavePhotos = localStorage.getItem('photos');
+  var doesHavePhotos = localStorage.getItem('photos').length;
+  console.log(doesHavePhotos)
   if(doesHavePhotos){
     JSON.parse(localStorage.getItem('photos')).forEach(function(photo){
       appendPhoto(photo);
+      photo = new Photo(photo.id, photo.title, photo.caption, photo.file, photo.favorite)
       photoArray.push(photo);
     });
   }
@@ -39,6 +42,13 @@ function searchCards () {
   });
 }
 
+function createElement() {
+  if (chooseImage.files[0]) {
+    reader.readAsDataURL(chooseImage.files[0]); 
+    reader.onload = createPhoto;
+  }
+}
+
 function clearInputs () {
   titleInput.value = '';
   captionInput.value = '';
@@ -52,10 +62,23 @@ function enableAddButton () {
 
 function createPhoto (event) {
   event.preventDefault();
-  const newPhoto = new Photo (Date.now(), titleInput.value, captionInput.value, false);
+  const newPhoto = new Photo (Date.now(), titleInput.value, captionInput.value, event.target.result, false);
   photoArray.push(newPhoto);
+  console.log(photoArray);
   newPhoto.saveToStorage(photoArray);
   appendPhoto(newPhoto);
+}
+
+function deleteCard (id) {
+
+  var cardElement = document.querySelector(`.full-card[data-id="${id}"]`);
+  cardElement.remove();
+  var deletedPhoto = photoArray.find((photo)=> {
+    return id === photo.id;
+  });
+
+  console.log(deletedPhoto, "should delete photo");
+  deletedPhoto.deleteFromStorage(photoArray, deletedPhoto.id);
 }
 
 function appendPhoto (photo) {
@@ -63,11 +86,11 @@ function appendPhoto (photo) {
   `
     <section class="full-card" data-id="${photo.id}">
       <p class="card-title">${photo.title}</p>
-      <p class="card-img">${photo.file}</p>
+      <img class="card-img" src="${photo.file}"/>
       <p class="card-caption">${photo.caption}</p>
       <article class="fav-del-area">
-        <img src="#" class="delete">
-        <img src="#" class="favorite">
+        <img onclick="deleteCard(${photo.id})" src="images/delete.svg" class="delete">
+        <img onclick="" src="images/favorite.svg" class="favorite">
       </article>
     </section>
   `
