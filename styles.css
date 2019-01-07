@@ -1,95 +1,96 @@
 *,
 *:before,
 *:after {
-	/*box-sizing: border-box;*/
-	margin: 0;
-	font-family: Open sans, sans-serif;
+/*box-sizing: border-box;*/
+margin: 0;
+font-family: Open sans, sans-serif;
 }
 
 body {
-	background: #C2B2B4;
+background: #C2B2B4;
 }
 
 /*Header*/
 
 header, main {
-	background: #3E2A35;
-	color: #FFFFFF;
-  padding: 25px;
+background: #3E2A35;
+color: #FFFFFF;
+padding: 25px;
 }
 
 header {
-	align-items: center;
-	display: flex;
-	justify-content: space-between;
+align-items: center;
+display: flex;
+justify-content: space-between;
 }
 
 h1 {
-	font-size: 50px;
-	margin-left: 50px;
+font-size: 50px;
+margin-left: 50px;
 }
 
 .logo {
-	width: 60px;
+width: 60px;
 }
 
 .search-area {
-	background: #938284;
-	border: 2px solid #938284;
-  border-radius: 5px;
-	align-items: center;
-	display: flex;
-	justify-content: center;
-	margin-right: 70px;
+background: #938284;
+border: 2px solid #938284;
+border-radius: 5px;
+align-items: center;
+display: flex;
+justify-content: center;
+margin-right: 70px;
 }
 
 #search-input {
-  border-radius: 5px 0px 0px 5px;
-  height: 45px;
-  margin-right: 10px;
-  width: 250px;
+border-radius: 5px 0px 0px 5px;
+height: 45px;
+margin-right: 10px;
+width: 250px;
 }
 
 .search-svg {
-	height: 30px;
-	padding-right: 10px;
-	width: 30px;
+height: 30px;
+padding-right: 10px;
+width: 30px;
 }
 
 #title-input,
 #caption-input,
 #search-input {
-	border: none;
+font-size: 20px;
+border: none;
 }
 
 /*Main*/
 
 .inputs-buttons {
-	font-size: 20px;
-	margin: auto;
-  padding: 35px;
-	width: 50%;
+font-size: 20px;
+margin: auto;
+padding: 35px;
+width: 50%;
 }
 
 .title-caption-form {
-	display: grid;
-	grid-template-rows: 1fr 3fr 1fr 3fr;
-	grid-row-gap: 10px
+display: grid;
+grid-template-rows: 1fr 3fr 1fr 3fr;
+grid-row-gap: 10px
 }
 
 .cva-button {
-	background: #5B4447;
-	border: none;
-	color: #FFFFFF;
-	font-size: 20px;
-  height: 60px;
-  margin-top: 35px;
-  padding: 0;
-	width: 45%;
+background: #5B4447;
+border: none;
+color: #FFFFFF;
+font-size: 20px;
+height: 60px;
+margin-top: 35px;
+padding: 0;
+width: 45%;
 }
 
 /*.add-button:disabled{
-	background: red;
+background: red;
 }*/
 
 .cva-button:hover {
@@ -113,13 +114,17 @@ h1 {
 	justify-content: space-between;
 }
 
+.hidden {
+	display: none;
+}
+
 /*Footer*/
 
 footer {
 	display: grid;
-  justify-content: center;
-  grid-template-columns: repeat(auto-fit, 240px);
-  grid-gap: 20px;
+	justify-content: center;
+	grid-template-columns: repeat(auto-fit, 240px);
+	grid-gap: 20px;
 	background: #C2B2B4;
 }
 
