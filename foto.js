@@ -4,7 +4,7 @@ class Photo {
     this.title = title;
     this.caption = caption;
     this.file = file;
-    this.favorite = favorite;
+    this.favorite = favorite || false;
   }
   saveToStorage (photos) {
   if(photos.length){
@@ -22,7 +22,11 @@ class Photo {
     this.saveToStorage(photos);
   }
 
-  updatePhoto () {
-    
+  updatePhoto(newText, type) {
+    if (type === 'card-title') {
+      this.title = newText;
+    } else if (type === 'card-caption') {
+      this.caption = newText;  
+    }
   }
 }

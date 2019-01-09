@@ -10,7 +10,6 @@ var reader = new FileReader();
 var photoArray = [];
 var favoriteNum = 0;
 
-
 addButton.disabled = true;
 
 addButton.addEventListener('click', createElement);
@@ -18,19 +17,26 @@ captionInput.addEventListener('keyup', enableAddButton);
 titleInput.addEventListener('keyup', enableAddButton);
 searchInput.addEventListener('keyup', searchCards);
 viewFavorites.addEventListener('click', showFavorites);
+cardArea.addEventListener('focusout', updateText);
 
 window.onload = loadFromLocalStorage();
 
 function loadFromLocalStorage () {
   var doesHavePhotos = localStorage.getItem('photos').length;
-  console.log(doesHavePhotos)
   if(doesHavePhotos){
     JSON.parse(localStorage.getItem('photos')).forEach(function(photo){
+      var photo = new Photo(photo.id, photo.title, photo.caption, photo.file, photo.favorite)
       appendPhoto(photo);
-      photo = new Photo(photo.id, photo.title, photo.caption, photo.file, photo.favorite)
       photoArray.push(photo);
       favoriteSaver(photo);
     });
+  }
+  checkCardArea();
+}
+
+function checkCardArea () {
+  if(!photoArray.length){
+    cardArea.innerHTML = 'Add a photo...'
   }
 }
 
@@ -80,6 +86,7 @@ function deleteCard (id) {
     return id === photo.id;
   });
   deletedPhoto.deleteFromStorage(photoArray, deletedPhoto.id);
+  checkCardArea();
 }
 
 function favoriteIncrement (favAdder) {
@@ -98,36 +105,59 @@ function favoriteSaver (fav) {
   favoriteCounter.innerHTML = favoriteNum;
 }
 
-function favoredPhoto (photoFav) {
+function favoredPhoto (photoFav,e) {
   let favPhoto = photoArray.find(function(photo) {
     return photoFav === photo.id
   });
   favPhoto.favorite = !favPhoto.favorite;
+  if(favPhoto.favorite){
+    e.target.attributes.src.textContent = 'images/favorite-active.svg';
+  } else {
+    e.target.attributes.src.textContent = 'images/favorite.svg';
+  }
   favPhoto.saveToStorage(photoArray);
   favoriteIncrement(favPhoto);
 }
 
 function showFavorites (event) {
   event.preventDefault();
-  let filteredFavorites = photoArray.filter(function(photo) {
-    return !photo.favorite;
+  cardArea.innerHTML = '';
+  let filteredFavs = photoArray.filter(photoFav => photoFav.favorite === true);
+  filteredFavs.forEach(function(filteredPhoto) {
+    appendPhoto(filteredPhoto);
   });
-  filteredFavorites.forEach(function(card) {
-    document.querySelector(`[data-id="${card.id}"]`).classList.add('hidden');
-    console.log(document.querySelector(`[data-id="${card.id}"]`))
-  });
+  enableAddButton();
+}
+
+function findObj (objId) {
+  for(var i = 0; i < objId.length; i++) {
+    if (objId == photoArray[i].id)
+      return photoArray[i];
+  }
+}
+
+function updateText(event) {
+  event.preventDefault();
+  var photoId = event.target.parentElement.dataset.id;;
+  var photoObj = findObj(photoId);
+  if(event.target.classList.contains('card-title')) {
+    photoObj.updatePhoto(event.target.innerText, 'card-title');
+  } else {
+    photoObj.updatePhoto(event.target.innerText, 'card-caption');
+  }
+    photoObj.saveToStorage(photoArray);
 }
 
 function appendPhoto (photo) {
   var card = 
   `
     <section class="full-card" data-id="${photo.id}">
-      <p class="card-title">${photo.title}</p>
+      <p contenteditable="true" class="card-title">${photo.title}</p>
       <img class="card-img" src="${photo.file}"/>
-      <p class="card-caption">${photo.caption}</p>
+      <p contenteditable="true" class="card-caption">${photo.caption}</p>
       <article class="fav-del-area">
         <img onclick="deleteCard(${photo.id})" src="images/delete.svg" class="delete">
-        <img onclick="favoredPhoto(${photo.id})" src="images/favorite.svg" class="favorite">
+        <img onclick="favoredPhoto(${photo.id},event)" src=${photo.favorite ? "images/favorite-active.svg" : 'images/favorite.svg'} class="favorite">
       </article>
     </section>
   `
