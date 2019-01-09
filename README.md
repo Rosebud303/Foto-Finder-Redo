@@ -10,7 +10,7 @@
 - Page is repsonsive down to 320 pixels
 
 ## My-Project
-![Screenshot](iamges/foto.png)
+![Screenshot](images/foto.png)
 
 ## Responsiveness
 ![Screenshot](images/foto3.png)
