@@ -87,6 +87,7 @@ function deleteCard (id) {
   });
   deletedPhoto.deleteFromStorage(photoArray, deletedPhoto.id);
   checkCardArea();
+  favoriteIncrement(id);
 }
 
 function favoriteIncrement (favAdder) {
