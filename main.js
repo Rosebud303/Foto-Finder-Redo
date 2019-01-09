@@ -53,8 +53,10 @@ function searchCards () {
   });
 }
 
-function createElement() {
+function createElement(e) {
+  e.preventDefault();
   if (chooseImage.files[0]) {
+    console.log(chooseImage.files[0])
     reader.readAsDataURL(chooseImage.files[0]); 
     reader.onload = createPhoto;
   }
@@ -87,7 +89,6 @@ function deleteCard (id) {
   });
   deletedPhoto.deleteFromStorage(photoArray, deletedPhoto.id);
   checkCardArea();
-  // favoriteIncrement(id);
 }
 
 function favoriteIncrement (favAdder) {
@@ -108,6 +109,7 @@ function favoriteSaver (fav) {
 
 function favoredPhoto (photoFav,e) {
   let favPhoto = photoArray.find(function(photo) {
+    console.log(photo)
     return photoFav === photo.id
   });
   favPhoto.favorite = !favPhoto.favorite;
