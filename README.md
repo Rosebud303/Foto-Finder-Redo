@@ -7,7 +7,7 @@
 - localStorage allows user to save changes to cards being edited by user
 - Used array prototypes to iterate through declared array
 - Used CSS tools such as: Grid and Flex
-- Page is repsonsive down to 320 pixels
+- Page is responsive down to 320 pixels
 
 ## My-Project
 ![Screenshot](images/foto.png)
